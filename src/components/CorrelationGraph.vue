@@ -1,16 +1,16 @@
 <template>
-  <div class="flex justify-center align-middle">
+  <div class="flex flex-wrap justify-center items-center">
     <div class="label mt-4 mr-2">
       <span class="label-text-alt text-sm">ID of the coin in lower case (e.g. 'btc', 'eth', 'unfi')</span>
     </div>
-    <div class="form-control flex mt-4 mr-4">
-      <input type="text" placeholder="Coin 1" class="input input-bordered border-teal-950 rounded-badge" v-model="coin1" />
+    <div class="form-control mt-4 mr-2">
+      <input type="text" placeholder="Coin 1" class="input input-bordered w-40 border-teal-950 rounded-badge" v-model="coin1" />
     </div>
-    <div class="form-control flex mt-4 mr-4">
-      <input type="text" placeholder="Coin 2" class="input input-bordered border-teal-950 rounded-badge" v-model="coin2" />
+    <div class="form-control mt-4 mr-2">
+      <input type="text" placeholder="Coin 2" class="input input-bordered w-40 border-teal-950 rounded-badge" v-model="coin2" />
     </div>
-    <div class="form-control mr-4 mt-4">
-      <select class="select select-bordered w-full max-w-xs border-teal-950 rounded-badge" v-model="interval">
+    <div class="form-control mt-4 mr-2">
+      <select class="select select-bordered w-full border-teal-950 rounded-badge" v-model="interval">
         <option value="" disabled selected>Interval</option>
         <option value="m1">1 min</option>
         <option value="m5">5 min</option>
@@ -20,10 +20,10 @@
         <option value="d1">1 day</option>
       </select>
     </div>
-    <div class="mt-4 mr-4">
+    <div class="mt-4 mr-2">
       <button class="btn btn-outline border-teal-950 hover:bg-teal-600 hover:border-teal-600 rounded-badge" @click="toggleValues">Toggle</button>
     </div>
-    <div class="mt-4 mr-4">
+    <div class="mt-4">
       <button class="btn btn-outline bg-teal-600 hover:bg-teal-600 hover:border-teal-600 text-white rounded-badge" @click="go">Go!</button>
     </div>
   </div>
@@ -38,6 +38,7 @@
     </div>
   </dialog>
 </template>
+
 
 <script>
 export default {
