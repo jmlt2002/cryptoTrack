@@ -12,6 +12,9 @@ module.exports = {
         cryptoTrackBlue2: '#387ADF',
         cryptoTrackBlue3: '#50C4ED',
       },
+      height: {
+        '700' : '700px',
+      },
     },
   },
   plugins: [require("daisyui")],

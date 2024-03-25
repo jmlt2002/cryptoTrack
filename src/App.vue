@@ -1,6 +1,6 @@
 <template>
   <PageHeader />
-  <CorrelationGraph class="flex align-middle justify-center"/>
+  <CorrelationGraph />
 </template>
 
 <script>
