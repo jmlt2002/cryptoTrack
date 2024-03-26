@@ -2,21 +2,21 @@
   <header class="bg-teal-950 p-2">
     <nav class="flex items-center justify-center lg:px-4 rounded-lg" aria-label="Global">
       <div class="flex flex-1">
-        <a href="#" class="-m-1.5 p-1.5 flex items-center">
-          <img class="h-16 w-auto" src="../assets/logo.png" alt="" />
-          <h1 class="inline-block ml-2 text-3xl font-bold leading-6 text-gray-50 mb-1">CryptoTrack</h1>
+        <a class="-m-1.5 p-1.5 flex items-center" to="/">
+            <img class="h-16 w-auto" src="../assets/logo.png" alt="" />
+            <h1 class="inline-block ml-1 text-3xl font-bold leading-6 text-gray-50 mb-1">CryptoTrack</h1>
+        </a>
+        <div class="hidden lg:flex lg:flex-1">
+          <a href="https://www.coingecko.com/en/api" target="_blank" class="mt-1">
+            <p class="inline-block ml-2 font-bold leading-6 text-gray-50 mb-1">( Powered by 
+              <img class="h-5 inline-block" src="../assets/coinGeckoLogo.png" alt=""></p>
           </a>
-          <div class="hidden lg:flex lg:flex-1">
-            <a href="https://www.coingecko.com/en/api" class="mt-1">
-              <p class="inline-block ml-2 font-bold leading-6 text-gray-50 mb-1">( Powered by 
-                <img class="h-5 inline-block" src="../assets/coinGeckoLogo.png" alt=""></p>
-            </a>
-            <span class="items-center inline-block m-1 font-bold leading-6 text-gray-50">and </span>
-            <a href="https://vercel.com/" class="mt-1">
-              <p class="inline-block font-bold leading-6 text-gray-50 mb-1">
-                <img class="h-5 inline-block" src="../assets/vercelLogo.png" alt=""> )</p>
-            </a>
-          </div>
+          <span class="items-center inline-block m-1 font-bold leading-6 text-gray-50">and </span>
+          <a href="https://vercel.com/" target="_blank" class="mt-1">
+            <p class="inline-block font-bold leading-6 text-gray-50 mb-1">
+              <img class="h-5 inline-block" src="../assets/vercelLogo.png" alt=""> )</p>
+          </a>
+        </div>
       </div>
       <div class="flex lg:hidden">
         <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 border-teal" @click="mobileMenuOpen = true">
@@ -57,7 +57,7 @@
           </transition>
         </Popover>
 
-        <a href="#" class="text-sm font-semibold leading-6 text-gray-50">Features</a>
+        <button @click="goToCoinList" class="text-sm font-semibold leading-6 text-gray-50">Coin List</button>
         <a href="#" class="text-sm font-semibold leading-6 text-gray-50">Marketplace</a>
         <a href="#" class="text-sm font-semibold leading-6 text-gray-50">Company</a>
       </PopoverGroup>
@@ -143,4 +143,14 @@ const products = [
 ]
 
 const mobileMenuOpen = ref(false)
+</script>
+
+<script>
+export default {
+  methods: {
+    goToCoinList() {
+      this.$router.push('/coinList')
+    },
+  },
+}
 </script>
