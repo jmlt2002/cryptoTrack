@@ -65,6 +65,11 @@ export default {
       let interval = this.interval;
       let { timestamps, prices } = await this.calculateValues(coin1, coin2, interval);
 
+      // Destroy the previous chart instance
+      if (this.chartInstance) {
+        this.chartInstance.destroy();
+      }
+      
       // Chart.js configuration
       const ctx = document.getElementById('chartCanvas').getContext('2d');
       this.chartInstance = new Chart(ctx, {

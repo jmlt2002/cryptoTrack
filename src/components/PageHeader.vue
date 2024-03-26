@@ -1,20 +1,22 @@
 <template>
   <header class="bg-teal-950 p-2">
     <nav class="flex items-center justify-center lg:px-4 rounded-lg" aria-label="Global">
-      <div class="flex lg:flex-1">
+      <div class="flex flex-1">
         <a href="#" class="-m-1.5 p-1.5 flex items-center">
           <img class="h-16 w-auto" src="../assets/logo.png" alt="" />
           <h1 class="inline-block ml-2 text-3xl font-bold leading-6 text-gray-50 mb-1">CryptoTrack</h1>
-        </a>
-        <a href="https://www.coingecko.com/en/api" class="mt-1">
-          <p class="inline-block ml-2 font-bold leading-6 text-gray-50 mb-1">( Powered by 
-            <img class="h-5 inline-block" src="../assets/coinGeckoLogo.png" alt=""></p>
-        </a>
-        <span class="items-center inline-block m-1 font-bold leading-6 text-gray-50">and </span>
-        <a href="https://vercel.com/" class="mt-1">
-          <p class="inline-block font-bold leading-6 text-gray-50 mb-1">
-            <img class="h-5 inline-block" src="../assets/vercelLogo.png" alt=""> )</p>
-        </a>
+          </a>
+          <div class="hidden lg:flex lg:flex-1">
+            <a href="https://www.coingecko.com/en/api" class="mt-1">
+              <p class="inline-block ml-2 font-bold leading-6 text-gray-50 mb-1">( Powered by 
+                <img class="h-5 inline-block" src="../assets/coinGeckoLogo.png" alt=""></p>
+            </a>
+            <span class="items-center inline-block m-1 font-bold leading-6 text-gray-50">and </span>
+            <a href="https://vercel.com/" class="mt-1">
+              <p class="inline-block font-bold leading-6 text-gray-50 mb-1">
+                <img class="h-5 inline-block" src="../assets/vercelLogo.png" alt=""> )</p>
+            </a>
+          </div>
       </div>
       <div class="flex lg:hidden">
         <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 border-teal" @click="mobileMenuOpen = true">
@@ -133,7 +135,7 @@ import {
 import { ChevronDownIcon } from '@heroicons/vue/20/solid'
 
 const products = [
-  { name: 'Analytics', description: 'Get a better understanding of your traffic', href: '#', icon: ChartPieIcon },
+  { name: 'Coin List', description: 'See the list of coins that the CoinGecko API has available', href: '#', icon: ChartPieIcon },
   { name: 'Engagement', description: 'Speak directly to your customers', href: '#', icon: CursorArrowRaysIcon },
   { name: 'Security', description: 'Your customers’ data will be safe and secure', href: '#', icon: FingerPrintIcon },
   { name: 'Integrations', description: 'Connect with third-party tools', href: '#', icon: SquaresPlusIcon },
