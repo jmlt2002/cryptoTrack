@@ -6,6 +6,15 @@
           <img class="h-16 w-auto" src="../assets/logo.png" alt="" />
           <h1 class="inline-block ml-3 text-3xl font-bold leading-6 text-gray-50 mb-1">CryptoTrack</h1>
         </a>
+        <a href="https://www.coingecko.com/en/api" class="mt-1">
+          <p class="inline-block ml-3 font-bold leading-6 text-gray-50 mb-1">( Powered by 
+            <img class="h-5 inline-block" src="../assets/coinGeckoLogo.png" alt=""></p>
+        </a>
+        <span class="items-center inline-block m-1 font-bold leading-6 text-gray-50">and </span>
+        <a href="https://vercel.com/" class="mt-1">
+          <p class="inline-block font-bold leading-6 text-gray-50 mb-1">
+            <img class="h-5 inline-block" src="../assets/vercelLogo.png" alt=""> )</p>
+        </a>
       </div>
       <div class="flex lg:hidden">
         <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 border-teal" @click="mobileMenuOpen = true">
