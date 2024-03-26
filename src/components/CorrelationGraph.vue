@@ -10,15 +10,7 @@
       <input type="text" id="coin2" placeholder="Coin 2" class="input input-bordered w-40 border-teal-950 rounded-badge" v-model="coin2" />
     </div>
     <div class="form-control mt-4 mr-2">
-      <select id="interval" class="select select-bordered w-full border-teal-950 rounded-badge" v-model="interval">
-        <option value="" disabled selected>Interval</option>
-        <option value="m1">1 min</option>
-        <option value="m5">5 min</option>
-        <option value="m30">30 min</option>
-        <option value="h1">1 hour</option>
-        <option value="h6">6 hours</option>
-        <option value="d1">1 day</option>
-      </select>
+      <input id="interval" placeholder="Days of data(<365)" class="input input-bordered w-44 border-teal-950 rounded-badge" v-model="interval" />
     </div>
     <div class="mt-4 mr-2">
       <button class="btn btn-outline border-teal-950 hover:bg-teal-600 hover:border-teal-600 rounded-badge" @click="toggleValues">Toggle</button>
@@ -42,7 +34,6 @@
   </dialog>
 </template>
 
-
 <script>
 import { Chart, registerables } from 'chart.js';
 
@@ -59,7 +50,7 @@ export default {
   methods: {
     go() {
       // check if any of the fields are empty
-      if (!this.coin1 || !this.coin2 || !this.interval) {
+      if (!this.coin1 || !this.coin2 || !this.interval || this.coin1 === this.coin2 || isNaN(this.interval)) {
         document.querySelector('#emptyFields').showModal();
         return;
       }
@@ -69,72 +60,59 @@ export default {
       [this.coin1, this.coin2] = [this.coin2, this.coin1];
     },
     async generateChart() {
+      let coin1 = this.coin1;
+      let coin2 = this.coin2;
+      let interval = this.interval;
+      let { timestamps, prices } = await this.calculateValues(coin1, coin2, interval);
+
+      // Chart.js configuration
+      const ctx = document.getElementById('chartCanvas').getContext('2d');
+      this.chartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: timestamps,
+          datasets: [{
+            label: `${coin1}/${coin2} price ratio`,
+            data: prices,
+            borderColor: '#4CCD99',
+            borderWidth: 1,
+            fill: false,
+            pointRadius: 0
+          }]
+        },
+      });
+    },
+    async calculateValues(coin1, coin2, interval) {
       try {
-        // Clear the previous chart
-        if (this.chartInstance) {
-          this.chartInstance.destroy();
-        }
-
-        // get value of dropdown bars until the first space
-        let coin1 = document.querySelector('#coin1').value.split(' ')[0];
-        let coin2 = document.querySelector('#coin2').value.split(' ')[0];
-        let interval = document.querySelector('#interval').value;
-        
         // Fetch data from the API
-        const response1 = await fetch(`https://api.coincap.io/v2/assets/${coin1}/history?interval=${interval}`);
-        const { data: data1 } = await response1.json();
-        const response2 = await fetch(`https://api.coincap.io/v2/assets/${coin2}/history?interval=${interval}`);
-        const { data: data2 } = await response2.json();
-         
-        // Ensure data1 and data2 have the same length
-        const minDataLength = Math.min(data1.length, data2.length);
-        const timestamps = [];
-        const prices = [];
+        const url1 = `https://api.coingecko.com/api/v3/coins/${coin1}/market_chart?vs_currency=eur&days=${interval}`;
+        const url2 = `https://api.coingecko.com/api/v3/coins/${coin2}/market_chart?vs_currency=eur&days=${interval}`;
+        const headers = {
+          'x_cg_demo_api_key': process.env.COINGECKO_API_KEY
+        };
 
-        // Calculate the division between coin1 and coin2 prices
-        for (let i = 0; i < minDataLength; i++) {
-          const timestamp = new Date(data1[i].time);
-          const price1 = parseFloat(data1[i].priceUsd);
-          const price2 = parseFloat(data2[i].priceUsd);
-          if (timestamp.getMinutes() % 5 != 0) {
-            timestamps.push('')
-          } else {
-            timestamps.push(timestamp.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' , hour: 'numeric', minute: 'numeric'}));
-          }
-          prices.push(price1 / price2);
-        }
-        console.log(timestamps);
-
-        // Chart.js configuration
-        const ctx = document.getElementById('chartCanvas').getContext('2d');
-        this.chartInstance = new Chart(ctx, {
-          type: 'line',
-          data: {
-            labels: timestamps,
-            datasets: [{
-              label: `${coin1}/${coin2} price ratio`,
-              data: prices,
-              borderColor: '#4CCD99',
-              borderWidth: 1,
-              fill: false,
-              pointRadius: 0
-            }]
-          },
-          options: {
-            scales: {
-              xAxes: [{
-                type: 'time',
-                time: {
-                  unit: 'minute',
-                  displayFormats: {
-                    minute: 'MMM D, YYYY, h:mm a'
-                  },
-                  tooltipFormat: 'MMM D, YYYY, h:mm a'
-                }
-              }]
-            },
-          }
+        const response1 = await fetch(url1, {
+          headers: headers
         });
+        const response2 = await fetch(url2, {
+          headers: headers
+        });
+
+        const values1 = response1.json();
+        const values2 = response2.json();
+        // values1 and values2 are promises, access the prices array and divide the price of coin1 by the price of coin2
+        values1.prices = (await values1).prices;
+        values2.prices = (await values2).prices;
+        
+        // divide the values of the two coins, the values are stores in the 'prices' array from the json response
+        let prices = [];
+        let timestamps = [];
+        for (let i = 0; i < values1.prices.length; i++) {
+          prices.push(values1.prices[i][1] / values2.prices[i][1]);
+          // timestamps are in unix format, convert them to day, month and year, i dont need the hours and minutes
+          timestamps.push(new Date(values1.prices[i][0]).toLocaleString('en-US', { day: 'numeric', month: 'short', year: 'numeric' }));
+        }
+        return { timestamps, prices };
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -142,9 +120,3 @@ export default {
   }
 };
 </script>
-
-<style>
-.custom-height{
-  height: 700;
-}
-</style>
