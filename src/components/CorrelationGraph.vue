@@ -120,9 +120,3 @@ export default {
   }
 };
 </script>
-
-<style>
-.custom-height{
-  height: 700;
-}
-</style>
