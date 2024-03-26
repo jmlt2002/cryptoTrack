@@ -4,10 +4,10 @@
       <div class="flex lg:flex-1">
         <a href="#" class="-m-1.5 p-1.5 flex items-center">
           <img class="h-16 w-auto" src="../assets/logo.png" alt="" />
-          <h1 class="inline-block ml-3 text-3xl font-bold leading-6 text-gray-50 mb-1">CryptoTrack</h1>
+          <h1 class="inline-block ml-2 text-3xl font-bold leading-6 text-gray-50 mb-1">CryptoTrack</h1>
         </a>
         <a href="https://www.coingecko.com/en/api" class="mt-1">
-          <p class="inline-block ml-3 font-bold leading-6 text-gray-50 mb-1">( Powered by 
+          <p class="inline-block ml-2 font-bold leading-6 text-gray-50 mb-1">( Powered by 
             <img class="h-5 inline-block" src="../assets/coinGeckoLogo.png" alt=""></p>
         </a>
         <span class="items-center inline-block m-1 font-bold leading-6 text-gray-50">and </span>
