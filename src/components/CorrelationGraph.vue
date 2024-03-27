@@ -36,6 +36,7 @@
 
 <script>
 import { Chart, registerables } from 'chart.js';
+import { createClient } from '@supabase/supabase-js'
 
 Chart.register(...registerables);
 
@@ -87,15 +88,21 @@ export default {
         },
       });
     },
-    async calculateValues(coin1, coin2, interval) {
+    async calculateValues(coin1_sym, coin2_sym, interval) {
       try {
-        // Fetch data from the API
-        const url1 = `https://api.coingecko.com/api/v3/coins/${coin1}/market_chart?vs_currency=eur&days=${interval}`;
-        const url2 = `https://api.coingecko.com/api/v3/coins/${coin2}/market_chart?vs_currency=eur&days=${interval}`;
+        // fetch info from the database
+        const supabase = createClient('https://sfqpiwoexeusferirizl.supabase.co', process.env.VUE_APP_SUPABASE_API_KEY)
+        const coin1 = await supabase.from('coinsList').select().eq('symbol', coin1_sym);
+        const coin2 = await supabase.from('coinsList').select().eq('symbol', coin2_sym);
+        let id1 = coin1.data[0].id;
+        let id2 = coin2.data[0].id;
+
+        // fetch data from the coingecko api
+        const url1 = `https://api.coingecko.com/api/v3/coins/${id1}/market_chart?vs_currency=eur&days=${interval}`;
+        const url2 = `https://api.coingecko.com/api/v3/coins/${id2}/market_chart?vs_currency=eur&days=${interval}`;
         const headers = {
           'x_cg_demo_api_key': process.env.VUE_APP_COINGECKO_API_KEY
         };
-
         const response1 = await fetch(url1, {
           headers: headers
         });
