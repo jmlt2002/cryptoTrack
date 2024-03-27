@@ -1,19 +1,16 @@
-// write me the default index.js file for the router
+import { createMemoryHistory, createRouter } from 'vue-router'
 
-import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
+import HomeView from '../views/HomeView.vue'
+import CoinList from '../views/CoinListView.vue'
 
 const routes = [
-    {
-        path: '/',
-        name: 'Home',
-        component: Home
-    }
+  { path: '/', component: HomeView },
+  { path: '/coinList', component: CoinList}
 ]
 
 const router = createRouter({
-    history: createWebHistory(process.env.BASE_URL),
-    routes
+  history: createMemoryHistory(),
+  routes,
 })
 
 export default router

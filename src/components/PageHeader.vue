@@ -2,10 +2,9 @@
   <header class="bg-teal-950 p-2">
     <nav class="flex items-center justify-center lg:px-4 rounded-lg" aria-label="Global">
       <div class="flex flex-1">
-        <a class="-m-1.5 p-1.5 flex items-center" to="/">
-            <img class="h-16 w-auto" src="../assets/logo.png" alt="" />
-            <h1 class="inline-block ml-1 text-3xl font-bold leading-6 text-gray-50 mb-1">CryptoTrack</h1>
-        </a>
+          <button @click="goToHome" class="inline-block ml-1 mt-1 text-3xl font-bold leading-6 text-gray-50">
+            <img class="inline-block h-16 w-auto" src="../assets/logo.png" alt=""/>CryptoTrack
+          </button>
         <div class="hidden lg:flex lg:flex-1">
           <a href="https://www.coingecko.com/en/api" target="_blank" class="mt-1">
             <p class="inline-block ml-2 font-bold leading-6 text-gray-50 mb-1">( Powered by 
@@ -150,6 +149,9 @@ export default {
   methods: {
     goToCoinList() {
       this.$router.push('/coinList')
+    },
+    goToHome() {
+      this.$router.push('/')
     },
   },
 }

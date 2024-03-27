@@ -93,7 +93,7 @@ export default {
         const url1 = `https://api.coingecko.com/api/v3/coins/${coin1}/market_chart?vs_currency=eur&days=${interval}`;
         const url2 = `https://api.coingecko.com/api/v3/coins/${coin2}/market_chart?vs_currency=eur&days=${interval}`;
         const headers = {
-          'x_cg_demo_api_key': process.env.COINGECKO_API_KEY
+          'x_cg_demo_api_key': process.env.VUE_APP_COINGECKO_API_KEY
         };
 
         const response1 = await fetch(url1, {
