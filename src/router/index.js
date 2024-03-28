@@ -1,11 +1,11 @@
 import { createMemoryHistory, createRouter } from 'vue-router'
 
 import HomeView from '../views/HomeView.vue'
-import CoinList from '../views/CoinListView.vue'
+import CoinListView from '../views/CoinListView.vue'
 
 const routes = [
-  { path: '/', component: HomeView },
-  { path: '/coinList', component: CoinList}
+  { path: '/', component: HomeView},
+  { path: '/coinList', component: CoinListView}
 ]
 
 const router = createRouter({
