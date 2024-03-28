@@ -3,14 +3,11 @@
     <p class="text-3xl">List of available coins</p>
   </div>
   <div class="flex justify-center">
-    <div class="w-full lg:w-3/4">
+    <div class="w-full lg:w-1/2">
       <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table class="w-full text-sm text-left rtl:text-right">
+        <table class="w-full text-sm text-left rtl:text-right table-fixed">
           <thead class="text-xs text-gray-200 uppercase bg-teal-950">
             <tr>
-              <th scope="col" class="px-6 py-3">
-                Rank
-              </th>
               <th scope="col" class="px-6 py-3">
                 ID
               </th>
@@ -24,10 +21,10 @@
           </thead>
           <tbody>
             <tr
-              v-for="(coin, index) in coins" :key="index" class="bg-base-200 text-base-content">
-              <td class="px-6 py-4">{{ index + 1 }}</td>
+              v-for="(coin) in coins" :key="coin.id" class="bg-base-200 text-base-content">
               <td class="px-6 py-4">{{ coin.id }}</td>
-              <td class="px-6 py-4">{{ coin.symbol }}</td>
+              <!-- capitalize the coin.symbol before adding it-->
+              <td class="px-6 py-4" v-text="coin.symbol.toUpperCase()"></td>
               <td class="px-6 py-4">{{ coin.name }}</td>
             </tr>
           </tbody>
