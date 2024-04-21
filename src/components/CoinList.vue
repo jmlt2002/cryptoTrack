@@ -72,6 +72,7 @@ export default {
       } catch (error) {
         console.error(error)
       }
+      document.documentElement.scrollTop = 0;
     },
     next() {
       if (this.currentPage === this.maxPage) return
